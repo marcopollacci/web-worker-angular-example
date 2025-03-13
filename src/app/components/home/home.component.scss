@@ -1,0 +1,11 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  gap: 3em;
+  justify-content: space-around;
+}
+
+a {
+  color: red;
+  font-size: 2em;
+}

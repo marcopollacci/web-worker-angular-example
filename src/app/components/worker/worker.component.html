@@ -1,0 +1,14 @@
+@let disabled = disableButton();
+
+<button [disabled]="disabled" (click)="startHeavyWorkInWorker()">
+  Start Heavy Work in worker thread
+</button>
+
+@if(disabled) {
+<p>Worker is running...check console.log</p>
+} @else {
+<p>Worker is not running</p>
+}
+
+<button (click)="incrementCounter()">Increment Counter</button>
+<p>Counter: {{ counter() }}</p>
