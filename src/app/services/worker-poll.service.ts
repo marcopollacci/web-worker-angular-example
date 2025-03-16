@@ -22,7 +22,7 @@ export class WorkerPollService {
     }
   }
 
-  getWorker(data: string) {
+  getWorker(data: string): Observable<string> | null {
     const worker = this.#workers.pop();
     if (!worker) return null;
     return new Observable((observer) => {
