@@ -20,4 +20,11 @@ export const routes: Routes = [
         (m) => m.NoWorkerComponent
       ),
   },
+  {
+    path: 'pool-worker',
+    loadComponent: () =>
+      import('./components/pool-worker/pool-worker.component').then(
+        (m) => m.PoolWorkerComponent
+      ),
+  },
 ];

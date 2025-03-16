@@ -1,0 +1,9 @@
+<button [disabled]="disableButton()" (click)="startNewHeavyJob()">
+  Start Heavy Work in worker thread
+</button>
+<p>Check activity in console</p>
+@if (disableButton()) {
+<p>WorkerPool is full!</p>
+} @else {
+<p>Do other task</p>
+}
