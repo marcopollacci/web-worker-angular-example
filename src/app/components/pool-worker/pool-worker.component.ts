@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import { WorkerPollService } from '../../services/worker-poll.service';
+import { WorkerPoolService } from '../../services/worker-poll.service';
 
 @Component({
   selector: 'app-pool-worker',
@@ -8,7 +8,7 @@ import { WorkerPollService } from '../../services/worker-poll.service';
   styleUrl: './pool-worker.component.scss',
 })
 export class PoolWorkerComponent {
-  #poolWorkerService = inject(WorkerPollService);
+  #poolWorkerService = inject(WorkerPoolService);
   disableButton = signal<boolean>(false);
 
   startNewHeavyJob() {

@@ -6,7 +6,7 @@ const POOL_SIZE = 4;
 @Injectable({
   providedIn: 'root',
 })
-export class WorkerPollService {
+export class WorkerPoolService {
   #workers: Worker[] = [];
 
   constructor() {
