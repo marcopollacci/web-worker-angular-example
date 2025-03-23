@@ -18,7 +18,7 @@ export class WorkerPoolService {
       const worker = new Worker(
         new URL('./worker-test.worker.ts', import.meta.url)
       );
-      this.#workers.push(worker);
+      this.increaseWorkerPool(worker);
     }
   }
 
@@ -29,14 +29,14 @@ export class WorkerPoolService {
       worker.onmessage = ({ data }: MessageEvent<string>) => {
         observer.next(data);
         observer.complete();
-        this.releaseWorker(worker);
+        this.increaseWorkerPool(worker);
       };
       worker.onerror = (error) => observer.error(error);
       worker.postMessage(data);
     });
   }
 
-  releaseWorker(worker: Worker) {
+  increaseWorkerPool(worker: Worker) {
     this.#workers.push(worker);
   }
 }
