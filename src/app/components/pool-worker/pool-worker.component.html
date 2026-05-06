@@ -6,8 +6,8 @@
 
 <section>
   <div>
-    <button [disabled]="disableButton()" (click)="startNewHeavyJob()">
-      {{ disableButton() ? "Pool Full…" : "Dispatch Job" }}
+    <button [disabled]="isPoolFull()" (click)="startNewHeavyJob()">
+      {{ isPoolFull() ? "Pool Full…" : "Dispatch Job" }}
     </button>
   </div>
 
@@ -19,7 +19,7 @@
     <div>
       <dt>Dispatch Mode</dt>
       <dd>
-        @if (disableButton()) {
+        @if (isPoolFull()) {
           Saturated
         } @else {
           Ready
