@@ -1,10 +1,11 @@
 import { Component, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-no-worker',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './no-worker.component.html',
-  styleUrl: './no-worker.component.scss',
+  styleUrls: ['../../common/styles/section.components.scss'],
 })
 export class NoWorkerComponent {
   counter = signal<number>(0);

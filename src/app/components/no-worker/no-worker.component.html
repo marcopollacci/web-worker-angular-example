@@ -1,6 +1,20 @@
-<button (click)="startHeavyWork()">Start Heavy Work in main thread</button>
+<header>
+  <a routerLink="/">← Back</a>
+  <h1>🚫 No Worker</h1>
+  <p>Heavy computation runs on the main thread — UI freezes until it's done</p>
+</header>
 
-<p>Try to interact with Increment Counter after press Start Heavy Work</p>
+<section>
+  <div>
+    <button (click)="startHeavyWork()">Start Heavy Work</button>
+    <span>⚠️ UI will freeze</span>
+  </div>
 
-<button (click)="incrementCounter()">Increment Counter</button>
-<p>Counter: {{ counter() }}</p>
+  <hr />
+
+  <div>
+    <p>Try clicking while the computation runs — it won't respond</p>
+    <button (click)="incrementCounter()">Increment Counter</button>
+    <span>{{ counter() }}</span>
+  </div>
+</section>

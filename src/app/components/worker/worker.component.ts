@@ -1,11 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { tap } from 'rxjs';
 import { WorkerTestService } from '../../services/worker-test.service';
 
 @Component({
   selector: 'app-worker',
+  imports: [RouterLink],
   templateUrl: './worker.component.html',
-  styleUrl: './worker.component.scss',
+  styleUrls: ['../../common/styles/section.components.scss'],
 })
 export class WorkerComponent {
   readonly #workerService = inject(WorkerTestService);

@@ -1,3 +1,22 @@
-<a routerLink="/worker">Worker</a>
-<a routerLink="/no-worker">No Worker</a>
-<a routerLink="/pool-worker">Pool Worker</a>
+<header>
+  <h1>Angular Web Worker Demo</h1>
+  <p>Explore different approaches to handling heavy computations in Angular</p>
+</header>
+
+<nav>
+  <a routerLink="/no-worker">
+    <span>🚫</span>
+    <strong>No Worker</strong>
+    <small>Main thread — blocking UI</small>
+  </a>
+  <a routerLink="/worker">
+    <span>⚙️</span>
+    <strong>Worker</strong>
+    <small>Single dedicated Web Worker</small>
+  </a>
+  <a routerLink="/pool-worker">
+    <span>🏊</span>
+    <strong>Pool Worker</strong>
+    <small>Worker Pool pattern</small>
+  </a>
+</nav>

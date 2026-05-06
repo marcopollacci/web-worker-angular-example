@@ -1,9 +1,35 @@
-<button [disabled]="disableButton()" (click)="startNewHeavyJob()">
-  Start Heavy Work in worker thread
-</button>
-<p>Check activity in console</p>
-@if (disableButton()) {
-<p>WorkerPool is full!</p>
-} @else {
-<p>Do other task</p>
-}
+<header>
+  <a routerLink="/">← Back</a>
+  <h1>🏊 Pool Worker</h1>
+  <p>Multiple tasks dispatched across a pool of worker threads</p>
+</header>
+
+<section>
+  <div>
+    <button [disabled]="disableButton()" (click)="startNewHeavyJob()">
+      {{ disableButton() ? "Pool Full…" : "Dispatch Job" }}
+    </button>
+    <span [attr.data-full]="disableButton()">
+      @if (disableButton()) {
+        ⚠️ Worker pool is full
+      } @else {
+        Pool ready
+      }
+    </span>
+  </div>
+
+  <hr />
+
+  <p>
+    Jobs are distributed across available workers — check the console for output
+  </p>
+
+  @if (logs().length > 0) {
+    <hr />
+    <ul>
+      @for (log of logs(); track log) {
+        <li>{{ log }}</li>
+      }
+    </ul>
+  }
+</section>

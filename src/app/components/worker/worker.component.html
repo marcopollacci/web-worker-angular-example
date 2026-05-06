@@ -1,14 +1,32 @@
 @let disabled = disableButton();
 
-<button [disabled]="disabled" (click)="startHeavyWorkInWorker()">
-  Start Heavy Work in worker thread
-</button>
+<header>
+  <a routerLink="/">← Back</a>
+  <h1>⚙️ Web Worker</h1>
+  <p>
+    Heavy computation runs in a dedicated worker thread — UI stays responsive
+  </p>
+</header>
 
-@if(disabled) {
-<p>Worker is running...check console.log</p>
-} @else {
-<p>Worker is not running</p>
-}
+<section>
+  <div>
+    <button [disabled]="disabled" (click)="startHeavyWorkInWorker()">
+      {{ disabled ? "Running…" : "Start Heavy Work" }}
+    </button>
+    <span [attr.data-active]="disabled">
+      @if (disabled) {
+        Worker is running…
+      } @else {
+        Idle
+      }
+    </span>
+  </div>
 
-<button (click)="incrementCounter()">Increment Counter</button>
-<p>Counter: {{ counter() }}</p>
+  <hr />
+
+  <div>
+    <p>Try clicking while the worker runs — notice no UI freeze</p>
+    <button (click)="incrementCounter()">Increment Counter</button>
+    <span>{{ counter() }}</span>
+  </div>
+</section>
