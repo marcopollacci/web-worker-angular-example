@@ -4,13 +4,11 @@ import { WorkerTestService } from '../../services/worker-test.service';
 
 @Component({
   selector: 'app-worker',
-  imports: [],
   templateUrl: './worker.component.html',
   styleUrl: './worker.component.scss',
 })
 export class WorkerComponent {
   readonly #workerService = inject(WorkerTestService);
-  // readonly workerResponse$ = this.#workerService.doHeavyWork('test');
   counter = signal<number>(0);
   disableButton = signal<boolean>(false);
 

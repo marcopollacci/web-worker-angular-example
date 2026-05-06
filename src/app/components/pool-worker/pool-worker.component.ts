@@ -15,7 +15,7 @@ export class PoolWorkerComponent {
     const newWorker = this.#poolWorkerService.getWorker(crypto.randomUUID());
     if (!newWorker) {
       this.disableButton.set(true);
-      console.warn('No worker available');
+      console.error('No worker available');
       return;
     }
     newWorker.subscribe((data) => {
