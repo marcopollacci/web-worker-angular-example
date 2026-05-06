@@ -9,20 +9,34 @@
     <button [disabled]="disableButton()" (click)="startNewHeavyJob()">
       {{ disableButton() ? "Pool Full…" : "Dispatch Job" }}
     </button>
-    <span [attr.data-full]="disableButton()">
-      @if (disableButton()) {
-        ⚠️ Worker pool is full
-      } @else {
-        Pool ready
-      }
-    </span>
   </div>
+
+  <dl>
+    <div>
+      <dt>Available Workers</dt>
+      <dd>{{ actualPoolSize() }}</dd>
+    </div>
+    <div>
+      <dt>Dispatch Mode</dt>
+      <dd>
+        @if (disableButton()) {
+          Saturated
+        } @else {
+          Ready
+        }
+      </dd>
+    </div>
+  </dl>
 
   <hr />
 
-  <p>
-    Jobs are distributed across available workers — check the console for output
-  </p>
+  <article>
+    <h2>Live Activity</h2>
+    <p>
+      Jobs are distributed across the available workers. Console output stays,
+      and the same events are mirrored here.
+    </p>
+  </article>
 
   @if (logs().length > 0) {
     <hr />
@@ -33,5 +47,9 @@
         </li>
       }
     </ul>
+  } @else {
+    <output>
+      Dispatch a job to see completed worker events appear in real time.
+    </output>
   }
 </section>

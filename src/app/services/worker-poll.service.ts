@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { Observable } from 'rxjs';
 
 const POOL_SIZE = 4;
@@ -8,6 +8,8 @@ const POOL_SIZE = 4;
 })
 export class WorkerPoolService {
   #workers: Worker[] = [];
+  #actualPoolSize = signal<number>(0);
+  actualPoolSize = this.#actualPoolSize.asReadonly();
 
   createPoolWorkers() {
     for (let i = 0; i < POOL_SIZE; i++) {
@@ -20,11 +22,14 @@ export class WorkerPoolService {
 
   getWorker(data: string): Observable<string> | null {
     const worker = this.#workers.pop();
+    this.#actualPoolSize.set(this.#workers.length);
     if (!worker) return null;
     return new Observable((observer) => {
       worker.onmessage = ({ data }: MessageEvent<string>) => {
         observer.next(data);
-        this.#increaseWorkerPool(worker);
+        if (data.includes('done')) {
+          this.#increaseWorkerPool(worker);
+        }
       };
       worker.onerror = (error) => observer.error(error);
       worker.postMessage(data);
@@ -38,5 +43,6 @@ export class WorkerPoolService {
 
   #increaseWorkerPool(worker: Worker) {
     this.#workers.push(worker);
+    this.#actualPoolSize.set(this.#workers.length);
   }
 }

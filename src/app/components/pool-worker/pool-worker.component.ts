@@ -13,6 +13,7 @@ import { WorkerPoolService } from '../../services/worker-poll.service';
 })
 export class PoolWorkerComponent implements OnDestroy {
   #poolWorkerService = inject(WorkerPoolService);
+  actualPoolSize = this.#poolWorkerService.actualPoolSize;
   disableButton = signal<boolean>(false);
   logs = signal<string[]>([]);
 
@@ -22,14 +23,13 @@ export class PoolWorkerComponent implements OnDestroy {
 
   startNewHeavyJob() {
     const newWorker = this.#poolWorkerService.getWorker(crypto.randomUUID());
-    if (!newWorker) {
+    if (this.actualPoolSize() === 0 || !newWorker) {
       this.disableButton.set(true);
       console.error('No worker available');
       return;
     }
     newWorker.subscribe((data) => {
       this.disableButton.set(false);
-      console.log(data);
       this.logs.update((prev) => [
         `[${new Date().toLocaleTimeString()}] ${data}`,
         ...prev,
