@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { WorkerPoolService } from '../../services/worker-poll.service';
 
@@ -11,10 +11,14 @@ import { WorkerPoolService } from '../../services/worker-poll.service';
     './pool-worker.component.scss',
   ],
 })
-export class PoolWorkerComponent {
+export class PoolWorkerComponent implements OnDestroy {
   #poolWorkerService = inject(WorkerPoolService);
   disableButton = signal<boolean>(false);
   logs = signal<string[]>([]);
+
+  constructor() {
+    this.#poolWorkerService.createPoolWorkers();
+  }
 
   startNewHeavyJob() {
     const newWorker = this.#poolWorkerService.getWorker(crypto.randomUUID());
@@ -31,5 +35,10 @@ export class PoolWorkerComponent {
         ...prev,
       ]);
     });
+  }
+
+  ngOnDestroy() {
+    // Terminate all workers in the pool when the component is destroyed..this is optional, but it's a good practice to clean up resources.
+    this.#poolWorkerService.destroyPoolWorkers();
   }
 }

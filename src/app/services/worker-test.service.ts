@@ -6,13 +6,10 @@ import { Observable } from 'rxjs';
 })
 export class WorkerTestService {
   #worker!: Worker;
-  constructor() {
-    this.createWorker();
-  }
 
   createWorker() {
     this.#worker = new Worker(
-      new URL('./worker-test.worker.ts', import.meta.url)
+      new URL('./worker-test.worker.ts', import.meta.url),
     );
   }
 
@@ -25,5 +22,9 @@ export class WorkerTestService {
       this.#worker.onerror = (error) => observer.error(error);
       this.#worker.postMessage(data);
     });
+  }
+
+  destroyWorker() {
+    this.#worker.terminate();
   }
 }

@@ -9,14 +9,10 @@ const POOL_SIZE = 4;
 export class WorkerPoolService {
   #workers: Worker[] = [];
 
-  constructor() {
-    this.createPoolWorkers();
-  }
-
   createPoolWorkers() {
     for (let i = 0; i < POOL_SIZE; i++) {
       const worker = new Worker(
-        new URL('./worker-test.worker.ts', import.meta.url)
+        new URL('./worker-test.worker.ts', import.meta.url),
       );
       this.#increaseWorkerPool(worker);
     }
@@ -34,6 +30,11 @@ export class WorkerPoolService {
       worker.onerror = (error) => observer.error(error);
       worker.postMessage(data);
     });
+  }
+
+  destroyPoolWorkers() {
+    this.#workers.forEach((worker) => worker.terminate());
+    this.#workers = [];
   }
 
   #increaseWorkerPool(worker: Worker) {
