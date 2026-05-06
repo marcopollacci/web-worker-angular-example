@@ -16,5 +16,8 @@ ul {
     padding-inline: 0.6rem;
     background: oklch(0% 0 0 / 0.25);
     border-radius: 0.375rem;
+    &[data-start] {
+      color: oklch(91.32% 0.07985 107.91);
+    }
   }
 }

@@ -28,7 +28,9 @@
     <hr />
     <ul>
       @for (log of logs(); track log) {
-        <li>{{ log }}</li>
+        <li [attr.data-start]="log.includes('received') || undefined">
+          {{ log }}
+        </li>
       }
     </ul>
   }

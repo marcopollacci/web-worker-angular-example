@@ -1,7 +1,7 @@
 /// <reference lib="webworker" />
 
 addEventListener('message', ({ data }) => {
-  console.log('🚀 ~ addEventListener ~ data:', data);
+  postMessage(`Worker received: ${data}`);
   heavyTask();
   postMessage(`done "${data}" task`);
 });

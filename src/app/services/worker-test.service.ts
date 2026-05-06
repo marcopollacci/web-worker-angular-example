@@ -16,8 +16,10 @@ export class WorkerTestService {
   doHeavyWork(data: string): Observable<string> {
     return new Observable((observer) => {
       this.#worker.onmessage = ({ data }: MessageEvent<string>) => {
-        observer.next(data);
-        observer.complete();
+        if (data.includes('done')) {
+          observer.next(data);
+          observer.complete();
+        }
       };
       this.#worker.onerror = (error) => observer.error(error);
       this.#worker.postMessage(data);

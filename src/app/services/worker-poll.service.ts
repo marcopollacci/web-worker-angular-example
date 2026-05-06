@@ -24,7 +24,6 @@ export class WorkerPoolService {
     return new Observable((observer) => {
       worker.onmessage = ({ data }: MessageEvent<string>) => {
         observer.next(data);
-        observer.complete();
         this.#increaseWorkerPool(worker);
       };
       worker.onerror = (error) => observer.error(error);
